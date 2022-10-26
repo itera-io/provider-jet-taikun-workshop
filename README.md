@@ -1,2 +1,7 @@
-# provider-jet-taikun-workshop
-A workshop to explain the basics of the Taikun Crossplane provider
+# Crossplane Provider for Taikun Workshop
+
+## Repo structure
+
+The `workshop/` directory contains the files required at the start of the workshop.
+
+The LaTeX sources for the workshop manual are located in the `src/` directory.

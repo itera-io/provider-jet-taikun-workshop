@@ -1,0 +1,17 @@
+# Secrets
+*_secret.yaml
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.toc
+_minted*/
+
+# other
+*.zip
+.idea
+.code

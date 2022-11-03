@@ -14,6 +14,13 @@ _minted*/
 *.pyg
 *.snippets
 
+# Workshop resources
+workshop/cloudcred.yaml
+workshop/kubeprofile.yaml
+workshop/organization.yaml
+workshop/project.yaml
+workshop/slack_alerting.yaml
+workshop/user_ap.yaml
 # other
 *.zip
 .idea

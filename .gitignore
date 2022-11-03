@@ -7,11 +7,14 @@
 *.fls
 *.log
 *.out
-*.pdf
+src/*.pdf
 *.toc
 _minted*/
+*.gz
+*.pyg
+*.snippets
 
 # other
 *.zip
 .idea
-.code
+.vscode

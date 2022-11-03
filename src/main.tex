@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{mydocstyle}
+\usepackage{hyperref}
+\usepackage[normalem]{ ulem }
+\usepackage{soul}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{blindtext} % lorem ipsum
+
+\usepackage[os=win]{menukeys}
+
+\textheight 24cm
+\textwidth 16.4cm
+\oddsidemargin 0cm
+\topmargin -0.5cm
+
+\begin{document}
+
+\articletitle{CrossplaneProvider for Taikun}{Workshop}
+\tableofcontents
+\newpage
+
+\input{intro}
+\pagebreak
+\input{setup}
+\pagebreak
+\input{tasks}
+\pagebreak
+\input{task0_organization.tex}
+\pagebreak
+\input{task1_kubeprofile.tex}
+\pagebreak
+\input{task2_slack_alerting.tex}
+\pagebreak
+\input{task3_cloudcred.tex}
+\pagebreak
+\input{task4_user_ap.tex}
+\pagebreak
+\input{task5_project.tex}
+\pagebreak
+\input{resume.tex}
+
+\end{document}

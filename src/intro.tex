@@ -1,0 +1,41 @@
+\section{Introduction}
+The purpose of this workshop is to introduce you to
+\href{https://www.terraform.io/intro/index.html}{Crossplane}
+and the \href{https://registry.terraform.io/providers/itera-io/taikun/latest}{Crossplane Provider for Taikun}.
+The latter will allow you to use Crossplane to manage resources in Taikun.
+
+\section{How to read this document}
+
+\begin{itemize}
+  \item Text in this form is to be typed, as is, on the command line.
+\begin{shell}
+cd workshop/
+ls
+echo Hello!
+\end{shell}
+\item This form of text shows screen output, usually the output of commands.
+\begin{raw}
+task_00/
+task_01/
+...
+Hello!
+\end{raw}
+\item This format is for code in Crossplane's configuration files,
+\begin{minted}[gobble=4, frame=single, linenos ]{yaml}
+    apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
+    kind: Organization
+    metadata:
+      name: orga-raph-crossplane
+    spec:
+      forProvider:
+        name: "new-orga"
+        fullName: "Create taikun organization with crossplane"
+        discountRate: 42
+        city: "Praha"
+        billingEmail: "billing2@foo.org"
+        email: "contact@foo.org"
+        phone: "065100035103"
+      providerConfigRef:
+        name: default
+\end{minted}
+\end{itemize}

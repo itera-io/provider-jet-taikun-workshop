@@ -1,0 +1,59 @@
+\subsection{Task 2: Slack Configuration \& Alerting Profile}\label{sec:slack\_alerting}
+
+\begin{note}
+For this task, please write your code in the file \texttt{slack\_alerting.yaml}
+at the root of the \texttt{workshop/} directory.
+\end{note}
+
+You will now create an alerting profile using a Slack configuration.
+
+\begin{enumerate}
+  \item Start by declaring a Slack configuration.
+  You can found its documentation in the \texttt{docs/} directory in the 
+  \href{https://github.com/itera-io/provider-jet-taikun/}{provider repository}.
+
+Its hook URL should be \texttt{https://hooks.myapp.example/ci}.
+It must send \textbf{alert-type notifications only} to the channel \texttt{ci}.
+  \item You can now declare the alerting profile.
+    \href{https://github.com/itera/provider-jet-taikun/tree/main/docs}{Here} is
+     its documentation.\\
+    The alerting profile should send notifications \textbf{daily} using the Slack
+     configuration declared above.
+\end{enumerate}
+
+\begin{warn}
+As always, your resources should belong to the organization created in
+\fullref{sec:organization}.
+\end{warn}
+
+But this time we will use the Reference arguments. Indeed as it is said in the 
+\href{https://github.com/itera-io/provider-jet-taikun/tree/main/docs}{documentation}
+ of alerting profile resource you have a \texttt{organizationIdRef} arguments and
+  the latter allows to refer to an organization by his metadata name. 
+
+For instance, the previous metadata name of the organization you have created is
+ \texttt{myorg} (or the name you have chosen). So the \texttt{organizationIdRef}
+  argument value will be \texttt{myorg} (or the name you have chosen).
+
+Now you can do the same thing for the argument which refer to the alerting profile
+ resource.
+
+\begin{tip}
+You can write configuration for multiple resource in one file, you just have to 
+separate the resources configurations with \texttt{---}.
+\begin{minted}[gobble=4, frame=single ]{yaml}
+    apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
+    kind: Organization
+    metadata:
+        name: myorg1
+    spec:
+        [...]
+    ---
+    apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
+    kind: Organization
+        name: myorg2
+    spec:
+        [...]
+\end{minted}
+\end{tip}
+Once you have declared these two new resources, apply and move on to the next task.

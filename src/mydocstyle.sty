@@ -1,0 +1,204 @@
+% encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% dates
+\usepackage{datetime}
+
+% ensure floating graphics appear in the correct section
+\usepackage[section]{placeins}
+
+% font
+\usepackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault} 
+\usepackage[T1]{fontenc}
+
+% frames around graphics
+\usepackage[export]{adjustbox}
+
+% url wrapping
+\usepackage[hyphens]{url}
+
+%  pagesize
+\textwidth 16cm
+\textheight 23.5cm
+\headsep 1cm
+\topmargin -1.5cm
+\oddsidemargin 0cm
+\setlength{\unitlength}{1cm}
+
+% No indentation on new paragraphs
+\setlength{\parindent}{0pt}
+
+% graphs
+\usepackage{graphicx,xcolor}
+
+% math
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% quotes, code, tables
+\usepackage{alltt}
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage{sectionbox}
+\usepackage{minted}
+\usemintedstyle{perldoc}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{listings}
+
+% url colors
+\usepackage[colorlinks = true,
+            linkcolor = black,
+            urlcolor  = blue,
+            citecolor = black,
+            anchorcolor = black]{hyperref}
+
+% reduce item spacing
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep}
+
+% reference section number and name with command \fullref{<section_label>}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} \textit{\nameref*{#1}}}}
+
+% make all quotes italic
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\itshape}
+
+\usepackage{fancyhdr}
+\newcommand{\articletitle}[2]{
+\pagestyle{fancy} \lhead{#1} \rhead{{\sc #2}}
+\lfoot{\includegraphics[height=0.7cm]{assets/logo_itera.png}}
+\rfoot{\includegraphics[height=0.7cm]{assets/logo_crossplane.png}}
+\begin{center}
+{\Large {\bf #1 #2}}\\
+\end{center}
+\bigskip}
+
+\newenvironment{fancyquote}[2]
+{
+\begin{center}
+\begin{minipage}{0.8\textwidth}
+\og \emph{#1} \fg
+\begin{flushright}
+#2
+\end{flushright}
+\end{minipage}
+\end{center}
+}
+
+\renewenvironment{leftbar}{%
+ \def\FrameCommand{\vrule width .5pt \hspace{10pt}}%
+ \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+
+\newenvironment{hint}{%
+  \begin{flushright}%
+	\begin{minipage}{0.9\textwidth}%
+	\textbf{Hint}%
+	\begin{leftbar}%
+}{%
+	\end{leftbar}%
+  \end{minipage}%
+	\end{flushright}%
+}
+
+\definecolor{notecolor}{HTML}{0074D9}
+\definecolor{warncolor}{HTML}{FF851B}
+\definecolor{infocolor}{HTML}{79C416}
+
+\newenvironment{note}{%
+	\begin{tcolorbox}[colback=notecolor!5!white,colframe=notecolor!75!black,arc=0mm,before
+skip=10pt plus 2pt,after skip=20pt plus 2pt,title=Note]
+}{%
+	\end{tcolorbox}
+}
+
+\newenvironment{warn}{%
+	\begin{tcolorbox}[colback=warncolor!5!white,colframe=warncolor!75!black,arc=0mm,before
+skip=10pt plus 2pt,after skip=20pt plus 2pt,title=Important]
+}{%
+	\end{tcolorbox}
+}
+\newenvironment{tip}{%
+	\begin{tcolorbox}[colback=infocolor!5!white,colframe=infocolor!75!black,arc=0mm,before
+skip=10pt plus 2pt,after skip=20pt plus 2pt,title=Tip]
+}{%
+	\end{tcolorbox}
+}
+
+\newenvironment{tf}{%
+\definecolor{sectboxrulecol}{rgb}{0.8,0.8,0.8}
+\definecolor{sectboxfillcol}{rgb}{0.99,0.96,0.89} %rgb(253, 246, 227)
+\VerbatimEnvironment{}
+\begin{center}%
+\framesectionbox{}
+\begin{sectionbox}{}
+\begin{minipage}{\linewidth}%
+\begin{minted}{terraform}}
+{%
+\end{minted}%
+\end{minipage}%
+\end{sectionbox}
+\end{center}}
+
+\newenvironment{shell}%
+{
+\definecolor{sectboxrulecol}{rgb}{0.8,0.8,0.8}
+\VerbatimEnvironment{}
+\begin{center}
+\framesectionbox{}
+\begin{sectionbox}{}
+\begin{minipage}{\linewidth}%
+\begin{minted}{shell}}
+{%
+\end{minted}%
+\end{minipage}%
+\end{sectionbox}
+\end{center}
+}
+
+\newenvironment{cmd}{%
+\definecolor{sectboxrulecol}{rgb}{0.8,0.8,0.8}
+\VerbatimEnvironment{}
+\begin{center}%
+\framesectionbox{}
+\begin{sectionbox}{}
+\begin{minipage}{\linewidth}%
+\begin{Verbatim}
+}%
+{
+\end{Verbatim}%
+\end{minipage}%
+\end{sectionbox}
+\end{center}}
+
+\newenvironment{raw}{%
+\definecolor{sectboxfillcol}{rgb}{1,1,1}
+\VerbatimEnvironment{}
+\begin{center}%
+\framesectionbox{}
+\begin{sectionbox}{}
+\begin{minipage}{\linewidth}%
+\begin{Verbatim}
+}%
+{
+\end{Verbatim}%
+\end{minipage}%
+\end{sectionbox}
+\end{center}}
+
+\lstdefinestyle{tree}{
+  literate=
+    {├}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{2ex}{1pt}}}}1
+    {─}{{\raisebox{0.5ex}{\rule{1.5ex}{1pt}}}}1
+    {└}{{\smash{\raisebox{0.5ex}{\rule{1pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{2ex}{1pt}}}}1
+    {│}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{2ex}{0pt}}}}1
+    {+}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{2ex}{1pt}}}}1
+    {-}{{\raisebox{0.5ex}{\rule{1.5ex}{1pt}}}}1
+    {=}{{\smash{\raisebox{0.5ex}{\rule{1pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{2ex}{1pt}}}}1
+    {|}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{2ex}{0pt}}}}1
+}

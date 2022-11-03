@@ -1,0 +1,144 @@
+\subsection{Task 0: Organization}\label{sec:organization}
+
+\begin{note}
+For this task, please write your code in the file \texttt{organization.yaml}
+at the root of the \texttt{workshop/} directory.
+\end{note}
+
+This objective of this first task is to create an organization.
+All resources created in the future will be part of this organization.
+As this is the first task, every step of the process is documented.
+
+Before you do anything, start by preparing your working directory for other commands.
+Be sure that the \fullref{sec:setup} is done before and the command \texttt{make run} 
+is blocking and run well.
+
+If all went well, you should see something like the following message.
+\begin{raw}
+15:41:54 [ .. ] go build linux_amd64
+go: downloading ...
+go: downloading ...
+[...]
+15:42:40 [ OK ] go build linux_amd64
+15:42:40 [ .. ] Running Crossplane locally out-of-cluster . . .
+/home/nivaultr/Documents/Itera/workshop/test-cross-workshop/provider-jet-taikun/_output/
+bin/linux_amd64/provider --debug
+1.6674001605709026e+09 DEBUG provider-jet-taikun Starting {"sync-period": "1h0m0s"}
+I1102 15:42:41.683337  466564 request.go:665] Waited for 1.036556627s due to client-side
+throttling, not priority and fairness, request:
+GET:https://185.22.97.151:6443/apis/project.taikun.jet.crossplane.io/v1alpha1?timeout=32s
+1.6674001619435318e+09 INFO controller-runtime.metrics Metrics server is starting to 
+listen {"addr": ":8080"}
+1.667400161956083e+09 INFO Starting server {"path": "/metrics", "kind": "metrics",
+"addr": "[::]:8080"}
+1.6674001619562776e+09 INFO controller.managed/accessprofile.taikun.jet.crossplane.io/
+v1alpha1, kind=profile  Starting EventSource {"reconciler group": "accessprofile.
+taikun.jet.crossplane.io", "reconciler kind": "Profile", "source": "kind source: 
+*v1alpha1.Profile"}
+1.6674001619563134e+09 INFO controller.managed/accessprofile.taikun.jet.crossplane.io/
+v1alpha1, kind=profile  Starting Controller {"reconciler group": "accessprofile.
+taikun.jet.crossplane.io", "reconciler kind": "Profile"}
+[...]
+\end{raw}
+
+Once all this steps has been done correctly, you can declare your organization resource.
+Create \texttt{organization.yaml} and write the following configuration block to it.
+\begin{minted}[gobble=4, frame=single, linenos ]{yaml}
+    apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
+    kind: Organization
+    metadata:
+        name: myorg
+    spec:
+        forProvider:
+            name: <name>
+            fullName: <full-name>
+            discountRate: 42
+        providerConfigRef:
+            name: providerconfig-workshop
+\end{minted}
+Be sure to replace \texttt{<name>} and \texttt{<full-name>} with
+names of your choosing.
+You can also choose another metadata name instead of \texttt{myorg}.
+
+\begin{tip}
+Notice the syntax of the configuration block, as you are creating a resource,
+it begins with the keyword \texttt{apiVersion}, followed by its CRD name and the api
+version. The type of resource is always lowercase and followed by the name of the
+provider, thus \texttt{"organization.taikun.jet.crossplane.io/v1alpha1"}.
+Following the resource's \texttt{apiVersion} is a metadata name, it must be unique 
+for this type of resource, and is used to refer to this specific resource, as you 
+will find out later. Watch out, this field does not correspond to the name of the 
+resource in Taikun.
+
+
+Three arguments are then defined in \texttt{spec} then \texttt{forProvider} fields: \texttt{name}, \texttt{fullName} and \texttt{discountRate}.
+On the left side of the colon is the argument's identifier, on the right is its value.
+See the documentation of Taikun's organization resource in the docs directory of the 
+\href{https://github.com/itera-io/provider-jet-taikun/}{provider repository} for a 
+full list of arguments, i.e. the resource's \textit{schema}.
+
+Metadata names and argument names can contain letters, digits, underscores and hyphens 
+and may not start with a digit. Their length must be lower than 30 character.
+\end{tip}
+
+Now apply your changes.
+\begin{tip}
+If you have already created resources, \texttt{kubectl apply} will create a new resource
+by making request to Taikun's API.
+\end{tip}
+
+\begin{shell}
+kubectl apply -f organization.yaml
+\end{shell}
+
+To check if your resource is created successfully execute the following command :
+\begin{shell}
+watch kubectl get managed
+\end{shell}
+
+You should get a False state.
+\begin{raw}
+NAME                                                       READY SYNCED EXTERNAL-NAME AGE
+organization.organization.taikun.jet.crossplane.io/myorg   False False                15s
+\end{raw}
+In order to show the errors describe the resource you have just created.
+\begin{shell}
+kubectl describe organizations.organization.taikun.jet.crossplane.io myorg
+\end{shell}
+
+You should have in the \texttt{Event} field at the bottom of the output an error message
+ like the following:
+\begin{raw}
+
+TO DO
+
+\end{raw}
+
+\begin{tip}
+\texttt{kubectl describe} command is used to describe (obviously) the resource you 
+created. You can use it by different way:
+
+\begin{shell}
+kubetcl describe crd-name my-ressource
+kubectl describe -f path-to-my-ressource-file
+\end{shell}
+To get the name of the crd you can use the \texttt{kubectl get crds} command or the 
+\texttt{kubectl get crds | grep taikun} to see all taikun crds.
+\end{tip}
+
+Now fix the discount rate so it is in the range 0-100 and run \texttt{kubectl apply} once
+ more. Normally you should have the following output for \texttt{watch kubectl get managed}
+  command.
+
+\begin{raw}
+NAME                                                      READY SYNCED EXTERNAL-NAME AGE
+organization.organization.taikun.jet.crossplane.io/myorg  True  True   14236         15s
+\end{raw}
+
+\begin{tip}
+The \texttt{EXTERNAL-NAME} field is the id of your resource in Taikun.
+\end{tip}
+
+You may wish to check the organization was indeed created at
+\href{https://app.taikun.cloud/organizations}{app.taikun.cloud/organizations}.
+

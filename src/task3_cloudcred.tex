@@ -1,0 +1,60 @@
+\subsection{Task 3: Cloud Credentials}\label{sec:cloudcred}
+
+\begin{note}
+For this task, please write your code in the file \texttt{cloudcred.yaml}
+at the root of the \texttt{workshop/} directory.\\
+\end{note}
+
+\begin{warn}
+You will need OpenStack credentials to complete this task.
+\end{warn}
+
+Cloud credentials are needed to create a Taikun project.
+In a real work environment,
+cloud credentials should not be stored under version control;
+it's why we'll use kubernetes secret.\\
+
+Define the OpenStack cloud credential resource in \texttt{cloudcred.yaml}.
+ \href{https://github.com/nivraph/provider-jet-taikun/blob/main/docs/cloudcredential.taikun.jet.crossplane.io.md}{Here} is its documentation.
+
+You will need a secret to provide sensitive data like your Openstack password.
+For this, create a new file named \texttt{openstack\_secret.yaml} to create a secret 
+configuration for Openstack cloud credentials.\\
+
+Here is a secret template :
+\begin{minted}[gobble=4, frame=single ]{yaml}
+    apiVersion: v1
+    kind: Secret
+    metadata:
+        name: <secret-name>
+        namespace: <namespace>
+    type: Opaque
+    data:
+        password: <openstack-password-base64>
+\end{minted}
+
+\begin{itemize}
+    \item The \texttt{<secret-name>} argument is the name you will refer to during 
+    the creation of your Opensatck cloud credential configuration file.
+    \item The \texttt{<namespace>} argument is the namespace where your secret will
+     be stored.
+    \item The \texttt{<openstack-password>} argument is your Openstack password in 
+    base 64.
+\end{itemize}
+
+\begin{tip}
+    To encode your password to base64 you can execute this command 
+    \begin{shell}
+    echo -n "your-password" | base64
+    \end{shell}
+    or you can go in a base64 translator like \href{https://www.base64encode.org/}{this one}
+\end{tip}
+
+
+Once you have declared your new resource, apply and move on to the next task.
+
+\begin{warn}
+As always, your resources should belong to the organization created in
+\fullref{sec:organization}.
+\end{warn}
+

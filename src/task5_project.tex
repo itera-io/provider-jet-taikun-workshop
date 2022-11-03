@@ -1,0 +1,40 @@
+\subsection{Task 5: Project and User attachment}\label{sec:project}
+
+\begin{note}
+For this task, please write all your code in the file \texttt{project.yaml}
+at the root of the \texttt{workshop/} directory.
+\end{note}
+
+\subsubsection{Project}
+
+Finally, you can declare a project resource.
+In order to create the resource you will need to import some flavor and images to 
+create a kubernetes cluster or a vm.
+In our case we will create a kubernetes cluster so we just need flavors.
+
+\begin{tip}
+Please read the this \href{https://itera.gitbook.io/taikun/guidelines/creating-a-cluster}{page}.
+It explains how to create a cluster with Taikun and what are the needed resources.
+\end{tip}
+
+
+Now it is your turn to create the project with the resources we created in 
+the previous tasks.
+You can use reference arguments because all the resources needed have been created in your 
+\texttt{crossplane-system} namespace in your cluster.
+
+You can found \href{https://github.com/itera-io/provider-jet-taikun/blob/main/docs/project.taikun.jet.crossplane.io.md}{here}
+ the project resource documentation.
+
+\subsubsection{Project User Attachment}
+
+Now, as you just write the configuration file your project, you can assign
+ users to your project.
+The users you want to attach to the project must be in the same organization.
+ In our case the 
+resources must belong to the organization created in \fullref{sec:organization}.
+
+So see to the Project User Attachment \href{https://github.com/itera-io/provider-jet-taikun/blob/main/docs/projectuserattachment.taikun.jet.crossplane.io.md}{documentation} 
+here andafter writing the two resources in \texttt{project.yaml} you can apply 
+your file.
+

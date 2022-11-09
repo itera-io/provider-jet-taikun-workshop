@@ -1,12 +1,10 @@
 \section{Setup}\label{sec:setup}
 
-To complete this workshop, you will need to install the 
-\href{https://github.com/itera-io/provider-jet-taikun}{Taikun Crossplane provider} 
-and the workshop. You need also a working kubernetes cluster with its config file.
+To complete this workshop, you will need to install the \href{https://github.com/itera-io/provider-jet-taikun}{Taikun Crossplane provider} and the workshop. You need also a working kubernetes cluster.
 
 \subsection{Requirements}
 \begin{itemize}
-  \item You must have Go version 1.17 or newer installed.
+  \item You will need Helm installed in your cluster.
   \item You will need Git to clone the provider's repo.
   \item You will need Taikun and Openstack credentials.
 \end{itemize}
@@ -15,22 +13,15 @@ and the workshop. You need also a working kubernetes cluster with its config fil
 To create a kubernetes cluster you can follow the steps of the following link.
 \href{https://docs.taikun.cloud/guidelines/creating-a-cluster/}{https://docs.taikun.cloud/guidelines/creating-a-cluster/}
 
-\subsection{Installing Go}
-\href{https://go.dev/doc/install}{This Goland tutorial}
-explains how to install Go on OS X, Windows and Linux.
-
 \subsection{Downloading the provider repository}
-In a first console window clone the provider directory.
+Clone the provider repository in your master node of your cluster.
 \begin{shell}
-git clone https://github.com/itera-io/provider-jet-taikun.git
-cd provider-jet-taikun/    
+git clone https://github.com/itera-io/provider-jet-taikun.git  
 \end{shell}
 
 
 \subsection{Downloading the workshop files}
-Clone the workshop directory in another console window and switch into 
-the \texttt{workshop/} directory.
+Clone the workshop directory in your master node of your cluster.
 \begin{shell}
 git clone https://github.com/itera-io/provider-jet-taikun-workshop.git
-cd provider-jet-taikun-workshop/workshop/
 \end{shell}

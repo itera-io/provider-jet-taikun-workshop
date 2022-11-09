@@ -8,10 +8,10 @@ at the root of the \texttt{workshop/} directory.
 Now that you have created an organization,
 you will create a Kubernetes profile belonging to it.
 Check the kubernetes profile resource's schema on
-the provider's documentation in the \texttt{docs/} directory in the 
-\href{https://github.com/itera-io/provider-jet-taikun/}{provider repository}.
+\href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun/kubernetesprofile.taikun.jet.crossplane.io/Profile/v1alpha1}{the provider's documentation}.
 and declare the resource in \texttt{kubernetesprofile.yaml}.
-Set \texttt{organizationId} to the ID of the organization created in the previous task (see \fullref{sec:organization}).
+Set \texttt{organizationId} to the ID
+of the organization created in the previous task (see \fullref{sec:organization}).\\
 
 
 \begin{tip}
@@ -29,6 +29,6 @@ So here the organization ID will be \texttt{14236}.
 
 Feel free to set some of kubernetes profile's other optional attributes,
 such as \texttt{scheduleOnMaster} and \\ \texttt{loadBalancingSolution}.
-
+\\
 
 Once you have declared your resource, apply and move on to the next task.

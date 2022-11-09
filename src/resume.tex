@@ -1,12 +1,12 @@
-\section{Resume}\label{sec:resume}
+\section{Summary}\label{sec:resume}
 
-Congratulations !! You just finished the workshop !
+Congratulations !! You just finished the workshop !\\
 
-You can now try to create other resources to be more familiar with the Taikun Crossplane provider.
+You can now try to create other resources to be more familiar with the Taikun Crossplane provider.\\
 
-There is some interesting links that can be useful:
+Here are some interesting links that can be useful:
 \begin{itemize}
-    \item The provider documentation: \href{https://github.com/itera-io/provider-jet-taikun/tree/main/docs}{https://github.com/itera-io/provider-jet-taikun/tree/main/docs}.
+    \item The provider documentation: \href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun}{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun}.
     \item Taikun documentation: \href{https://itera.gitbook.io/taikun/}{https://itera.gitbook.io/taikun/}.
 \end{itemize}
 
@@ -15,4 +15,9 @@ To delete a resource you just have to run
 \begin{shell}
 kubectl delete -f path-to-resource.yaml
 \end{shell}
+or
+\begin{shell}
+kubectl delete crd-name resource-name
+\end{shell}
+Sometimes the deletion can take many seconds to many minutes according to the resource.
 \end{note}

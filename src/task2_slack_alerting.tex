@@ -9,16 +9,13 @@ You will now create an alerting profile using a Slack configuration.
 
 \begin{enumerate}
   \item Start by declaring a Slack configuration.
-  You can found its documentation in the \texttt{docs/} directory in the 
-  \href{https://github.com/itera-io/provider-jet-taikun/}{provider repository}.
+  You can find its documentation \href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun/slackconfiguration.taikun.jet.crossplane.io/Configuration/v1alpha1}{here}.\\
 
 Its hook URL should be \texttt{https://hooks.myapp.example/ci}.
 It must send \textbf{alert-type notifications only} to the channel \texttt{ci}.
   \item You can now declare the alerting profile.
-    \href{https://github.com/itera/provider-jet-taikun/tree/main/docs}{Here} is
-     its documentation.\\
-    The alerting profile should send notifications \textbf{daily} using the Slack
-     configuration declared above.
+    \href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun/alertingprofile.taikun.jet.crossplane.io/Profile/v1alpha1}{Here} is its documentation.\\
+    The alerting profile should send notifications \textbf{daily} using the Slack configuration declared above.
 \end{enumerate}
 
 \begin{warn}
@@ -26,21 +23,14 @@ As always, your resources should belong to the organization created in
 \fullref{sec:organization}.
 \end{warn}
 
-But this time we will use the Reference arguments. Indeed as it is said in the 
-\href{https://github.com/itera-io/provider-jet-taikun/tree/main/docs}{documentation}
- of alerting profile resource you have a \texttt{organizationIdRef} arguments and
-  the latter allows to refer to an organization by his metadata name. 
+But this time we will use the Reference arguments. Indeed as it is said in the \href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun/alertingprofile.taikun.jet.crossplane.io/Profile/v1alpha1}{documentation} of the alerting profile resource you have a \texttt{organizationIdRef} argument, which allows us to refer to an organization by its metadata name.\\
 
-For instance, the previous metadata name of the organization you have created is
- \texttt{myorg} (or the name you have chosen). So the \texttt{organizationIdRef}
-  argument value will be \texttt{myorg} (or the name you have chosen).
+For instance, the previous metadata name of the organization you have created is \texttt{myorg} (or the name you have chosen). So the \texttt{organizationIdRef} argument value will be \texttt{myorg} (or the name you have chosen).\\
 
-Now you can do the same thing for the argument which refer to the alerting profile
- resource.
+Now you can do the same for the argument which refers to the alerting profile resource.\\
 
 \begin{tip}
-You can write configuration for multiple resource in one file, you just have to 
-separate the resources configurations with \texttt{---}.
+You can write configurations for multiples resource in the same file, you just have to separate the resources' configurations with 3 \texttt{"-"}.
 \begin{minted}[gobble=4, frame=single ]{yaml}
     apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
     kind: Organization
@@ -51,6 +41,7 @@ separate the resources configurations with \texttt{---}.
     ---
     apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
     kind: Organization
+    metadata:
         name: myorg2
     spec:
         [...]

@@ -1,5 +1,5 @@
 \section{Documentation}
-The provider documentation is available in `docs` directory of the \href{https://github.com/itera-io/provider-jet-taikun/}{provider repository}.
+The provider documentation is available \href{https://doc.crds.dev/github.com/itera-io/provider-jet-taikun}{here}.
 
 \section{Tasks}
 The end goal of this workshop is to have an operational Taikun project built solely with Crossplane
@@ -12,11 +12,17 @@ All your work will be done in the \texttt{workshop/} directory. These are its in
 ./workshop/
 |-- providerconfig.yaml
 |-- taikun_secret.yaml.tmpl
+|-- organization.yaml
+|-- kubeprofile.yaml
+|-- slack_alerting.yaml
+|-- cloudcred.yaml
+|-- user_ap.yaml
+|-- project.yaml
 \end{raw}
 \texttt{providerconfig.yaml} contains the Provider configuration,
 namely its source address and what credentials to use.
 You will not need to edit this file.
-\begin{minted}[gobble=4, frame=single, linenos ]{yaml}
+\begin{minted}[gobble=4, frame=single ]{yaml}
     apiVersion: taikun.jet.crossplane.io/v1alpha1
     kind: ProviderConfig
     metadata:
@@ -37,7 +43,6 @@ At the end of the workshop, your directory will be organized as such:
 |-- providerconfig.yaml
 |-- taikun_secret.yaml.tmpl
 |-- taikun_secret.yaml
-|-- openstack_secret.yaml.tmpl
 |-- openstack_secret.yaml
 |-- organization.yaml
 |-- kubeprofile.yaml
@@ -47,58 +52,55 @@ At the end of the workshop, your directory will be organized as such:
 |-- project.yaml
 \end{raw}
 
-\subsection{Provider and cluster setup}\label{sec:auth}
-\subsubsection{Authentification}
+\subsection{Provider and cluster setup}\label{sec:set}
+
+\subsubsection{Prepare the cluster to use the provider}
+First thing to do is to install crossplane in your cluster. You can follow \href{https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-crossplane}{this guide} to install crossplane with Helm.
+
+Once it is done you can install the Taikun crossplane provider with this command at the root of the provider repository:
+\begin{shell}
+kubectl apply -f examples/install.yaml
+\end{shell}
+
+You can now go into the workshop repository.
+\begin{shell}
+cd path-to-workshop-repo/workshop
+\end{shell}
+
+\subsubsection{Authentication}
 In order to complete the tasks that follow, you will need to provide Taikun credentials to Crossplane.
 You will need a Partner account as some of the tasks, such as creating an organization,
 require Partner privileges.\\
 
-Input variables will be explained later in the workshop.
-For now, simply edit \texttt{taikun\_secret.yaml.tmpl}
-and replace the values of \texttt{email} and \texttt{password}
-with your Taikun credentials.
-\begin{minted}[gobble=4, frame=single, linenos ]{yaml}
+\begin{note}
+If you want to use the development environment, you must define the \texttt{api\_host} argument under your Taikun password in the secret:
+\begin{minted}[gobble=4, frame=single ]{yaml}
     # taikun_secret.yaml.tmpl
-    "email": "your_email",
+    [...]
     "password": "your_password",
+    "api_host": "api.taikun.dev"
 \end{minted}
+if you set the \texttt{api\_host} argument, be sure you have added a coma after the value of the \texttt{password} argument.
+\end{note}
 
 Then you can run the following command to create a secret which stores your Taikun credentials to which the providerconfig refers.
+Please change \texttt{TAIKUN\_EMAIL} and \texttt{TAIKUN\_PASSWORD} values with your Taikun credentials.
 \begin{shell}
 TAIKUN_EMAIL="your-email"
 TAIKUN_PASSWORD="your-password"
 cat taikun_secret.yaml.tmpl | sed -e "s/your_email/${TAIKUN_EMAIL}/g" \
 | sed -e "s/your_password/${TAIKUN_PASSWORD}/g" > taikun_secret.yaml
 \end{shell}
+To find out more about providing sensitive data in Kubernetes, see this \href{https://kubernetes.io/docs/concepts/configuration/secret/}{page}.\\
 
-To find out more about providing sensitive data in Kubernetes, see this \href{https://kubernetes.io/docs/concepts/configuration/secret/}{page}.
+Finally, in order to connect to Taikun with the Crossplane provider you can now execute the following commands:
+\begin{shell}
+kubectl apply -f taikun_secret.yaml
+kubectl apply -f providerconfig.yaml
+\end{shell}
 
-\subsubsection{Prepare the cluster to use the provider}
-First in the console window where you have clone the provider repository, please write the following command.
-\begin{shell}
-make submodules
-\end{shell}
-Then this one to create the crd's:
-\begin{shell}
-kubectl apply -f package/crds
-\end{shell}
-Now you can write in the same console window these commands to run against your kubernetes cluster.
-\begin{shell}
-make run
-\end{shell}
-If all is working well the previous command is blocking. 
-Open a new window and execute the following command to create a new namespace named \texttt{crossplane-system} in your cluster.
-\begin{shell}
-kubectl create namespace crossplane-system --dry-run=client -o yaml | kubectl apply -f -
-\end{shell}
-In order to connect to taikun with the Crossplane provider you can now execute the following command:
-\begin{shell}
-kubectl apply -f examples/providerconfig/
-\end{shell}
-\begin{warn}
-Be sure that you have your kubernetes config file of your cluster in your \texttt{~/.kube/} directory. Otherwise please create this directory and paste your config file like this : \texttt{~/.kube/config}.\\
-This place is normally the default one where the kubectl command will look for a kubernetes cluster config. Otherwise you will have may be to set the KUBECONFIG environment variable to this location:
-\begin{shell}
-export KUBECONFIG="~/.kube/config"
-\end{shell}
-\end{warn}
+\begin{note}
+You will may be use the \texttt{sudo} permission to run \texttt{kubectl} commands.
+\end{note}
+
+You can now create Taikun resources !

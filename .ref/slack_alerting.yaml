@@ -1,0 +1,30 @@
+apiVersion: slackconfiguration.taikun.jet.crossplane.io/v1alpha1
+kind: Configuration
+metadata:
+  name: myslackconfig
+spec:
+  forProvider:
+    name: "test-workshop"
+    organizationIdRef:
+      name: "myorg"
+    type: "Alert"
+    url: "https://hooks.myapp.example/ci"
+    channel: "foo"
+  providerConfigRef:
+    name: providerconfig-workshop
+---
+apiVersion: alertingprofile.taikun.jet.crossplane.io/v1alpha1
+kind: Profile
+metadata:
+  name: myalertprofile
+spec:
+  forProvider:
+    name: "test-workshop"
+    lock: false
+    organizationIdRef:
+      name: "myorg"
+    slackConfigurationIdRef:
+      name: myslackconfig
+    reminder: "Daily"
+  providerConfigRef:
+    name: providerconfig-workshop

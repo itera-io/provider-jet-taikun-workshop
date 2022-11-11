@@ -1,0 +1,10 @@
+kind: Organization
+metadata:
+        name: myorg
+spec:
+        forProvider:
+                name: test-workshop
+                fullName: Test WORKSHOP
+                discountRate: 42
+        providerConfigRef:
+                name: providerconfig-workshop

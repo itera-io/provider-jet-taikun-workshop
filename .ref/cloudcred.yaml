@@ -1,0 +1,24 @@
+apiVersion: cloudcredential.taikun.jet.crossplane.io/v1alpha1
+kind: Credential
+metadata:
+  name: myopencred
+spec:
+  forProvider:
+    type: "openstack"
+    name: "test-workshop"
+    user: <your-user>
+    organizationIdRef:
+            name: "myorg"
+    passwordSecretRef:
+      key: "password"
+      name: "cred-op-workshop"
+      namespace: "crossplane-system"
+    url: "https://cloud.tcpro.cz:30500/v3"
+    domain: "default"
+    projectName: <project-name>
+    region: "RegionOne"
+    publicNetworkName: "public2"
+    lock: false
+    availabilityZone: "pod4"
+  providerConfigRef:
+    name: providerconfig-workshop

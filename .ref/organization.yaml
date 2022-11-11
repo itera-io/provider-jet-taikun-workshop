@@ -1,0 +1,11 @@
+apiVersion: organization.taikun.jet.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+        name: myorg
+spec:
+        forProvider:
+                name: test-workshop
+                fullName: Test WORKSHOP
+                discountRate: 42
+        providerConfigRef:
+                name: providerconfig-workshop

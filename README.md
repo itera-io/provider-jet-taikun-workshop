@@ -1,6 +1,6 @@
 # Crossplane Provider for Taikun Workshop
 
-[Here](https://github.com/itera-io/provider-jet-taikun) is the Taikun Crossplane provider repository.
+[Here](https://github.com/itera-io/upjet-provider-taikun) is the Taikun Crossplane provider repository.
 
 ## Repo structure
 
